@@ -1,0 +1,43 @@
+#include <iostream>
+#include <set>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+typedef unsigned uint;
+typedef long long unsigned llu;
+
+int main () {
+    //llu _primes[] = {2llu, 3llu, 5llu, 7llu, 11llu, 13llu};
+    llu _primes[] = {2llu, 3llu};
+    uint count = sizeof(_primes)/sizeof(_primes[0]);
+    llu x = _primes[count-1];
+    llu sqrtx;
+    set<llu> primes(_primes, _primes+count);
+    //cout << "Find 1st up to nth prime" << endl;
+    llu n;
+    cin >> n;
+    while (count < n) {
+        x += 2llu;
+        sqrtx = sqrt(x);
+        bool xIsPrime = true;
+        for (auto p : primes) {
+            if (p > sqrtx) {
+                break;
+            }
+            if (x % p == 0) {
+                xIsPrime = false;
+                break;
+            }
+        }
+        if (xIsPrime) {
+            primes.insert(x);
+            count++;
+        }
+    }
+    uint c = 1;
+    for (auto p : primes) {
+        cout << setw(10) << c++ << " " << setw(10) << p << endl; 
+    }
+}
